@@ -3,7 +3,7 @@
 ## Author: diomsg (Diom-Antonidas EU)
 
 ## Version: @project-version@
-## IconTexture: Interface\AddOns\Expositum\media\icon.blp
+## IconTexture: Interface\AddOns\WoWAddonDevelopmentLibraries\media\icon.blp
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 

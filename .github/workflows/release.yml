@@ -1,5 +1,5 @@
-name: Publish 'Horatum'
-run-name: Publish 'Horatum' (${{ github.event.inputs.release-type }})
+name: Publish 'Libraries (WoW Addon Development)'
+run-name: Publish 'Libraries (WoW Addon Development)' (${{ github.event.inputs.release-type }})
 
 on:
   workflow_dispatch:

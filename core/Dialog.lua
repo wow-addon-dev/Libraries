@@ -1,12 +1,14 @@
-local MAJOR, MINOR = "WAD-LibShared-Dialogs", 1
-local lib = LibStub:NewLibrary(MAJOR, MINOR)
+local addonName, LIB = ...
 
-if not lib then return end
+local L = LIB.Localization
 
-lib.copyAdressDialog = lib.copyAdressDialog or nil
-lib.deleteDataDialog = lib.deleteDataDialog or nil
+WAD = WAD or {}
+WAD.Dialog = {}
 
-function lib:ShowCopyAddressDialog(address, text)
+WAD.Dialog.copyAdressDialog = nil
+WAD.Dialog.deleteDataDialog = nil
+
+function WAD.Dialog:ShowCopyAddressDialog(address)
     if not self.copyAdressDialog then
 		local frameName = "WoWAddonDevelopment_SharedDialogs_CopyAdressFrame"
 
@@ -45,7 +47,7 @@ function lib:ShowCopyAddressDialog(address, text)
 
     if self.deleteDataDialog and self.deleteDataDialog:IsShown() then self.deleteDataDialog:Hide() end
 
-    self.copyAdressDialog.Text:SetText(text)
+    self.copyAdressDialog.Text:SetText(L["dialog.copy-address.text"])
     self.copyAdressDialog.CloseButton:SetText(CLOSE)
     self.copyAdressDialog.EditBox:SetText(address)
     self.copyAdressDialog.EditBox:HighlightText()
@@ -54,7 +56,7 @@ function lib:ShowCopyAddressDialog(address, text)
     self.copyAdressDialog:Show()
 end
 
-function lib:ShowDeleteDataDialog(text, onConfirmCallback)
+function WAD.Dialog:ShowDeleteDataDialog(onConfirmCallback)
     if not self.deleteDataDialog then
         local frameName = "WoWAddonDevelopment_SharedDialogs_DeleteDataFrame"
 
@@ -89,7 +91,7 @@ function lib:ShowDeleteDataDialog(text, onConfirmCallback)
 
     if self.copyAdressDialog and self.copyAdressDialog:IsShown() then self.copyAdressDialog:Hide() end
 
-    self.deleteDataDialog.Text:SetText(text)
+    self.deleteDataDialog.Text:SetText(L["dialog.delete-data.text"])
     self.deleteDataDialog.YesButton:SetText(YES)
     self.deleteDataDialog.NoButton:SetText(NO)
 
