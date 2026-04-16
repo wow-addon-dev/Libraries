@@ -2,15 +2,12 @@ local addonName, LIB = ...
 
 local L = LIB.Localization
 
-ArcaneWizardLibrary = ArcaneWizardLibrary or {}
-ArcaneWizardLibrary.Dialog = {}
+ArcaneWizardLibrary.Dialog.linkDialog = nil
+ArcaneWizardLibrary.Dialog.confirmDialog = nil
 
-ArcaneWizardLibrary.Dialog.copyAdressDialog = nil
-ArcaneWizardLibrary.Dialog.deleteDataDialog = nil
-
-function ArcaneWizardLibrary.Dialog:ShowCopyAddressDialog(address)
-    if not self.copyAdressDialog then
-		local frameName = "WoWAddonDevelopment_SharedDialogs_CopyAdressFrame"
+function ArcaneWizardLibrary.Dialog:ShowLinkDialog(address)
+    if not self.linkDialog then
+		local frameName = "ArcaneWizardLibrary_Dialog_LinkFrame"
 
         local frame = CreateFrame("Frame", frameName, UIParent, "TranslucentFrameTemplate")
         frame:SetFrameStrata("DIALOG")
@@ -42,23 +39,23 @@ function ArcaneWizardLibrary.Dialog:ShowCopyAddressDialog(address)
             frame:Hide()
         end)
 
-        self.copyAdressDialog = frame
+        self.linkDialog = frame
     end
 
-    if self.deleteDataDialog and self.deleteDataDialog:IsShown() then self.deleteDataDialog:Hide() end
+    if self.confirmDialog and self.confirmDialog:IsShown() then self.confirmDialog:Hide() end
 
-    self.copyAdressDialog.Text:SetText(L["dialog.copy-address.text"])
-    self.copyAdressDialog.CloseButton:SetText(CLOSE)
-    self.copyAdressDialog.EditBox:SetText(address)
-    self.copyAdressDialog.EditBox:HighlightText()
+    self.linkDialog.Text:SetText(L["dialog.link.text"])
+    self.linkDialog.CloseButton:SetText(CLOSE)
+    self.linkDialog.EditBox:SetText(address)
+    self.linkDialog.EditBox:HighlightText()
 
-    self.copyAdressDialog:SetHeight(self.copyAdressDialog:GetTop() - self.copyAdressDialog.CloseButton:GetBottom() + 20)
-    self.copyAdressDialog:Show()
+    self.linkDialog:SetHeight(self.linkDialog:GetTop() - self.linkDialog.CloseButton:GetBottom() + 20)
+    self.linkDialog:Show()
 end
 
-function ArcaneWizardLibrary.Dialog:ShowDeleteDataDialog(onConfirmCallback)
-    if not self.deleteDataDialog then
-        local frameName = "WoWAddonDevelopment_SharedDialogs_DeleteDataFrame"
+function ArcaneWizardLibrary.Dialog:ShowConfirmDialog(text, onConfirmCallback)
+    if not self.confirmDialog then
+        local frameName = "ArcaneWizardLibrary_Dialog_ConfirmFrame"
 
         local frame = CreateFrame("Frame", frameName, UIParent, "TranslucentFrameTemplate")
         frame:SetFrameStrata("DIALOG")
@@ -86,22 +83,22 @@ function ArcaneWizardLibrary.Dialog:ShowDeleteDataDialog(onConfirmCallback)
             frame:Hide()
         end)
 
-        self.resetDialog = frame
+        self.confirmDialog = frame
     end
 
-    if self.copyAdressDialog and self.copyAdressDialog:IsShown() then self.copyAdressDialog:Hide() end
+    if self.linkDialog and self.linkDialog:IsShown() then self.linkDialog:Hide() end
 
-    self.deleteDataDialog.Text:SetText(L["dialog.delete-data.text"])
-    self.deleteDataDialog.YesButton:SetText(YES)
-    self.deleteDataDialog.NoButton:SetText(NO)
+    self.confirmDialog.Text:SetText(text)
+    self.confirmDialog.YesButton:SetText(YES)
+    self.confirmDialog.NoButton:SetText(NO)
 
-    self.deleteDataDialog.YesButton:SetScript("OnClick", function()
+    self.confirmDialog.YesButton:SetScript("OnClick", function()
         if type(onConfirmCallback) == "function" then
             onConfirmCallback()
         end
-        self.deleteDataDialog:Hide()
+        self.confirmDialog:Hide()
     end)
 
-    self.deleteDataDialog:SetHeight(self.deleteDataDialog:GetTop() - self.deleteDataDialog.NoButton:GetBottom() + 20)
-    self.deleteDataDialog:Show()
+    self.confirmDialog:SetHeight(self.confirmDialog:GetTop() - self.confirmDialog.NoButton:GetBottom() + 20)
+    self.confirmDialog:Show()
 end

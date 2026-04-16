@@ -2,5 +2,5 @@
 ..\FrameXML\UI.xsd">
 	<Include file="lib\lib.xml"/>
     <Include file="locale\locale.xml"/>
-	<Include file="core\core.xml"/>
+	<Include file="modules\modules.xml"/>
 </Ui>

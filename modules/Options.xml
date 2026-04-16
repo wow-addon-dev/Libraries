@@ -2,7 +2,7 @@
 ..\FrameXML\UI.xsd">
 	<Script file="OptionsMixin.lua"/>
 
-	<Frame name="ArcaneWizardLibrary_OptionsText" mixin="ArcaneWizardLibrary_OptionsTextMixin" virtual="true">
+	<Frame name="ArcaneWizardLibrary_OptionsMenuText" mixin="ArcaneWizardLibrary_OptionsMenuTextMixin" virtual="true">
 		<Size y="28" />
 		<Layers>
 			<Layer level="OVERLAY">

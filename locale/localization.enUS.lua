@@ -9,5 +9,4 @@ local L = LIB.Localization
 
 -- Dialog
 
-L["dialog.copy-address.text"] = "To copy the link press CTRL + C."
-L["dialog.delete-data.text"] = "Do you really want to delete all addon data?\n|cnNORMAL_FONT_COLOR:Warning:|r The game interface will be automatically reloaded!"
+L["dialog.link.text"] = "To copy the link press CTRL + C."

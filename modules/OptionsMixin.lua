@@ -1,6 +1,6 @@
-ArcaneWizardLibrary_OptionsTextMixin = {}
+ArcaneWizardLibrary_OptionsMenuTextMixin = {}
 
-function ArcaneWizardLibrary_OptionsTextMixin:Init(initializer)
+function ArcaneWizardLibrary_OptionsMenuTextMixin:Init(initializer)
 	local data = initializer:GetData()
 	self.LeftText:SetTextToFit(data.leftText)
 	self.RightText:SetTextToFit(data.rightText)
