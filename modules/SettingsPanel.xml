@@ -1,9 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-	<Script file="OptionsMixin.lua"/>
+	<Script file="SettingsPanelMixin.lua"/>
 
-	<Frame name="ArcaneWizardLibrary_OptionsMenuText" mixin="ArcaneWizardLibrary_OptionsMenuTextMixin" virtual="true">
-		<Size y="28" />
+	<Frame name="ArcaneWizardLibrary_SettingsPanelText" mixin="ArcaneWizardLibrary_SettingsPanelTextMixin" virtual="true">
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString parentKey="LeftText" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
@@ -19,5 +18,13 @@
 				</FontString>
 			</Layer>
 		</Layers>
+	</Frame>
+
+	<Frame name="ArcaneWizardLibrary_SettingsPanelTextNormal" inherits="ArcaneWizardLibrary_SettingsPanelText" virtual="true">
+		<Size y="13" />
+	</Frame>
+
+	<Frame name="ArcaneWizardLibrary_SettingsPanelTextLarge" inherits="ArcaneWizardLibrary_SettingsPanelText" virtual="true">
+		<Size y="30" />
 	</Frame>
 </Ui>
