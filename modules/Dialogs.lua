@@ -11,6 +11,7 @@ StaticPopupDialogs["ARCANE_WIZARD_LIB_LINK"] = {
 		self:GetEditBox():SetText(data)
         self:GetEditBox():HighlightText()
         self:GetEditBox():SetFocus()
+		self:SetWidth(350)
     end,
 	EditBoxOnTextChanged = function(self, data)
 		self:SetText(data)
