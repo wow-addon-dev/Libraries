@@ -1,3 +1,6 @@
+**v1.0 (2026-04-17)**
+- Initial release
+
 **v1.0-alpha.2 (2026-04-16)**
 - Initial release
 
