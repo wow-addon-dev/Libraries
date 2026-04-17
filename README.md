@@ -32,4 +32,4 @@ If you find a bug or have a suggestion, please use the GitHub Issues or the Curs
 
 ## Translation Support
 
-If you would like to help me with the translation, I would be very pleased.
+If you would like to localize this addon into other languages, your contribution would be very welcome.
