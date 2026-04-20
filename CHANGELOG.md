@@ -3,3 +3,4 @@
 [Full Changelog](@full-changelog@) - [Previous Releases](https://github.com/wow-addon-dev/Library/releases)
 
 - Updated: Logo
+- Minor code adjustments
