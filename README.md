@@ -28,7 +28,7 @@ This library provides pre-built solutions for common addon functionalities.
 
 ## Supported Languages & Flavors
 
-* Languages: English, German
+* Languages: English, German, Russian
 * Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Retail
 
 ## Bugs & Feedback
@@ -37,4 +37,4 @@ If you find a bug or have a suggestion, please use the GitHub Issues or the Curs
 
 ## Translation Support
 
-If you would like to localize this addon into other languages, your contribution would be very welcome.
+If you would like to localize this addon into other languages, your contribution would be very welcome. You can submit your translations directly via GitHub or use the [CurseForge Localization Tool](https://legacy.curseforge.com/wow/addons/arcane-wizard-library/localization).
