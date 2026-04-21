@@ -1,3 +1,7 @@
+**v1.1 (2026-04-21)**
+- Updated: Logo
+- Minor code adjustments
+
 **v1.0 (2026-04-17)**
 - Initial release
 
