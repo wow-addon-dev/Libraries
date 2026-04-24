@@ -2,6 +2,7 @@ local addonName, LIB = ...
 
 ArcaneWizardLibrary = ArcaneWizardLibrary or {}
 ArcaneWizardLibrary.Dialogs = {}
+ArcaneWizardLibrary.Settings = {}
 
 ArcaneWizardLibrary.ADDON_AUTHOR = C_AddOns.GetAddOnMetadata(addonName, "Author")
 ArcaneWizardLibrary.ADDON_VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
