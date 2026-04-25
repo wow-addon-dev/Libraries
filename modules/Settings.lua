@@ -1,11 +1,10 @@
 local addonName, LIB = ...
-
 local L = LIB.Localization
 
 --- Adds a clickable button to the settings layout.
 ---
 --- @param layout table The layout object to append the initializer to.
---- @param config table Configuration table. Expected keys: name (string), buttonText (string), onClick (function), tooltip (string).
+--- @param config table Configuration table. Expected keys: name, buttonText, onClick, tooltip. Optional keys: parentInit, parentCondition, shownPredicate.
 ---
 --- @return table initializer The layout initializer object for the button.
 function ArcaneWizardLibrary.Settings:AddButton(layout, config)
@@ -17,16 +16,23 @@ function ArcaneWizardLibrary.Settings:AddButton(layout, config)
         true
     )
 
+    if config.parentInit and config.parentCondition then
+        initializer:SetParentInitializer(config.parentInit, config.parentCondition)
+    end
+
+    if config.shownPredicate then
+        initializer:AddShownPredicate(config.shownPredicate)
+    end
+
     layout:AddInitializer(initializer)
 
     return initializer
 end
 
---- Adds a static text row (typically used for key-value pairs like in an "About" section).
---- The height of the frame can be dynamically adjusted via the config.
+--- Adds a static text row to the settings layout, typically used for key-value pairs (e.g., in an "About" section).
 ---
 --- @param layout table The layout object to append the initializer to.
---- @param config table Configuration table. Expected keys: leftText (string), rightText (string), height (number, optional).
+--- @param config table Configuration table. Expected keys: leftText, rightText. Optional keys: height, parentInit, parentCondition, shownPredicate.
 ---
 --- @return table initializer The layout initializer object for the text panel.
 function ArcaneWizardLibrary.Settings:AddInfoText(layout, config)
@@ -34,6 +40,14 @@ function ArcaneWizardLibrary.Settings:AddInfoText(layout, config)
         leftText = config.leftText or "",
         rightText = config.rightText or "",
     })
+
+    if config.parentInit and config.parentCondition then
+        initializer:SetParentInitializer(config.parentInit, config.parentCondition)
+    end
+
+    if config.shownPredicate then
+        initializer:AddShownPredicate(config.shownPredicate)
+    end
 
     local line = layout:AddInitializer(initializer)
 
@@ -44,36 +58,37 @@ function ArcaneWizardLibrary.Settings:AddInfoText(layout, config)
     return initializer
 end
 
---- Registers and creates a standard checkbox setting.
---- Supports automatic visual indentation and state handling if a parent element is provided.
+--- Registers and adds a standard checkbox to the settings layout.
 ---
---- @param category table The settings category object to which this option belongs.
---- @param config table Configuration table. Expected keys: settingKey, variableName, variableTable, name, tooltip, default. Optional: parentInit, parentCondition, onClick.
+--- @param category table The settings category object.
+--- @param config table Configuration table. Expected keys: settingKey, variableName, variableTable, name, tooltip, default. Optional keys: parentInit, parentCondition, shownPredicate, onClick.
 ---
---- @return table checkbox The layout element for the checkbox.
+--- @return table initializer The layout initializer object for the checkbox.
 --- @return table setting The registered setting object.
 function ArcaneWizardLibrary.Settings:AddCheckbox(category, config)
     local setting = Settings.RegisterAddOnSetting(category, config.settingKey, config.variableName, config.variableTable, Settings.VarType.Boolean, config.name, config.default or false)
-    local checkbox = Settings.CreateCheckbox(category, setting, config.tooltip)
+    local initializer = Settings.CreateCheckbox(category, setting, config.tooltip)
 
     if config.parentInit and config.parentCondition then
-        checkbox:SetParentInitializer(config.parentInit, config.parentCondition)
+        initializer:SetParentInitializer(config.parentInit, config.parentCondition)
+    end
+
+    if config.shownPredicate then
+        initializer:AddShownPredicate(config.shownPredicate)
     end
 
     if config.onClick then
         setting:SetValueChangedCallback(config.onClick)
     end
 
-    return checkbox, setting
+    return initializer, setting
 end
 
---- Creates a combined Checkbox and Slider element in the WoW Settings menu.
---- This function registers both variables, sets up the layout initializer,
---- and applies a patch allowing the combo to act as a parent for dependent settings.
+--- Registers and adds a combined Checkbox and Slider element to the settings layout.
 ---
 --- @param category table The settings category object.
 --- @param layout table The layout object to append the initializer to.
---- @param config table Configuration table. Expected keys: checkboxSettingKey, checkboxVarName, checkboxName, checkboxTooltip, checkboxDefault, sliderSettingKey, sliderVariableName, sliderName, sliderTooltip, sliderDefault, sliderMin, sliderMax, sliderStep, sliderFormatter, variableTable.
+--- @param config table Configuration table. Expected keys: checkboxSettingKey, checkboxVarName, checkboxName, checkboxTooltip, checkboxDefault, sliderSettingKey, sliderVariableName, sliderName, sliderTooltip, sliderDefault, sliderMin, sliderMax, sliderStep, sliderFormatter, variableTable. Optional keys: parentInit, parentCondition, shownPredicate.
 ---
 --- @return table initializer The layout initializer object for the combined element.
 --- @return table settingCheckbox The registered setting object for the checkbox.
@@ -90,19 +105,25 @@ function ArcaneWizardLibrary.Settings:AddCheckboxSliderCombo(category, layout, c
     local initializer = CreateSettingsCheckboxSliderInitializer(settingCheckbox, config.checkboxName, config.checkboxTooltip, settingSlider, optionsSlider, config.sliderName, config.sliderTooltip)
     initializer.GetSetting = function() return settingCheckbox end
 
+    if config.parentInit and config.parentCondition then
+        initializer:SetParentInitializer(config.parentInit, config.parentCondition)
+    end
+
+    if config.shownPredicate then
+        initializer:AddShownPredicate(config.shownPredicate)
+    end
+
     layout:AddInitializer(initializer)
 
     return initializer, settingCheckbox, settingSlider
 end
 
-
---- Creates a Dropdown menu in the WoW Settings.
+--- Registers and adds a Dropdown menu to the settings layout.
 ---
 --- @param category table The settings category object.
---- @param config table Configuration table. Expected keys: settingKey, variableName, variableTable, name, tooltip, default, options.
----                     'options' should be a table containing subtables: { { value = 1, label = "One" }, { value = 2, label = "Two" } }
+--- @param config table Configuration table. Expected keys: settingKey, variableName, variableTable, name, tooltip, default, options. Optional keys: parentInit, parentCondition, shownPredicate, onClick.
 ---
---- @return table dropdown The layout initializer object for the dropdown.
+--- @return table initializer The layout initializer object for the dropdown.
 --- @return table setting The registered setting object.
 function ArcaneWizardLibrary.Settings:AddDropdown(category, config)
     local varType = type(config.default) == "string" and Settings.VarType.String or Settings.VarType.Number
@@ -118,15 +139,38 @@ function ArcaneWizardLibrary.Settings:AddDropdown(category, config)
         return container:GetData()
     end
 
-    local dropdown = Settings.CreateDropdown(category, setting, GetOptions, config.tooltip)
+    local initializer = Settings.CreateDropdown(category, setting, GetOptions, config.tooltip)
 
     if config.parentInit and config.parentCondition then
-        dropdown:SetParentInitializer(config.parentInit, config.parentCondition)
+        initializer:SetParentInitializer(config.parentInit, config.parentCondition)
+    end
+
+    if config.shownPredicate then
+        initializer:AddShownPredicate(config.shownPredicate)
     end
 
     if config.onClick then
         setting:SetValueChangedCallback(config.onClick)
     end
 
-    return dropdown, setting
+    return initializer, setting
+end
+
+--- Adds an expandable header section to the settings layout.
+---
+--- @param layout table The layout object to append the initializer to.
+--- @param name string The display name of the header.
+---
+--- @return table initializer The layout initializer object for the header.
+--- @return function isExpandedPredicate A function that returns the current expanded state (boolean).
+function ArcaneWizardLibrary.Settings:CreateExpandableHeader(layout, name)
+    local initializer = CreateFromMixins(SettingsExpandableSectionInitializer)
+    local data = { name = name, expanded = false }
+
+    initializer:Init("ArcaneWizardLibrary_SettingsExpandTemplate", data)
+    initializer.GetExtent = ScrollBoxFactoryInitializerMixin.GetExtent
+
+    layout:AddInitializer(initializer)
+
+    return initializer, function() return initializer.data.expanded end
 end

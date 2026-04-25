@@ -14,9 +14,14 @@ This library provides pre-built solutions for common addon functionalities.
 
 ### Included Functionalities
 
-*   **Link Dialog** - Easily show and copy a link.
-*   **Safe Code Execution** - A dialog to safely confirm and run a code snippet.
-*   **Options Menu Text** - Add a simple text line to the standard Blizzard options menu.
+* **Dialogs:**
+    * Link Dialog: Shows a popup with an auto-highlighted text field for easy copying.
+    * Confirmation Dialog: A standard Yes/No prompt to safely confirm actions and execute callbacks.
+* **Settings API Wrappers:** Easily add standard UI elements to the Blizzard options menu:
+    * Buttons and static Info Text rows.
+    * Checkboxes and Dropdown menus.
+    * Combined Checkbox & Slider elements.
+    * Expandable Headers to cleanly organize settings sections.
 
 ### How to Integrate
 

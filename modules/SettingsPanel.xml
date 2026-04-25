@@ -20,6 +20,10 @@
 		</Layers>
 	</Frame>
 
+	<Frame name="ArcaneWizardLibrary_SettingsExpandTemplate" inherits="SettingsExpandableSectionTemplate" mixin="ArcaneWizardLibrary_SettingsExpandMixin" virtual="true">
+        <Size y="30" />
+    </Frame>
+
 	<Frame name="ArcaneWizardLibrary_SettingsPanelTextNormal" inherits="ArcaneWizardLibrary_SettingsPanelText" virtual="true">
 		<Size y="13" />
 	</Frame>

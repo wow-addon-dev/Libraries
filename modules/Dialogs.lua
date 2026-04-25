@@ -6,15 +6,15 @@ StaticPopupDialogs["ARCANE_WIZARD_LIB_LINK"] = {
     text = L["dialog.link.text"],
     button1 = CLOSE,
     hasEditBox = true,
-	editBoxWidth = 300,
+    editBoxWidth = 300,
     OnShow = function(self, data)
-		self:GetEditBox():SetText(data)
+        self:GetEditBox():SetText(data)
         self:GetEditBox():HighlightText()
         self:GetEditBox():SetFocus()
-		self:SetWidth(350)
+        self:SetWidth(350)
     end,
-	EditBoxOnTextChanged = function(self, data)
-		self:SetText(data)
+    EditBoxOnTextChanged = function(self, data)
+        self:SetText(data)
         self:HighlightText()
         self:SetFocus()
     end,
@@ -28,7 +28,7 @@ StaticPopupDialogs["ARCANE_WIZARD_LIB_LINK"] = {
     whileDead = true,
     hideOnEscape = true,
     preferredIndex = 3,
-	fullScreenCover = true
+    fullScreenCover = true
 }
 
 StaticPopupDialogs["ARCANE_WIZARD_LIB_CONFIRM"] = {
@@ -42,16 +42,24 @@ StaticPopupDialogs["ARCANE_WIZARD_LIB_CONFIRM"] = {
     end,
     timeout = 0,
     whileDead = true,
-	showAlert = true,
+    showAlert = true,
     hideOnEscape = true,
     preferredIndex = 3,
-	fullScreenCover = true
+    fullScreenCover = true
 }
 
+--- Shows a popup dialog with a copyable text/link field.
+--- The text inside the edit box is automatically highlighted for easy copying (Ctrl+C).
+---
+--- @param address string The URL or text to be displayed in the edit box.
 function ArcaneWizardLibrary.Dialogs:ShowLinkDialog(address)
     StaticPopup_Show("ARCANE_WIZARD_LIB_LINK", nil, nil, address)
 end
 
+--- Shows a standard confirmation dialog with 'Yes' and 'No' buttons.
+---
+--- @param text string The question or message to display in the dialog.
+--- @param onConfirmCallback function The function to execute if the user clicks "Yes".
 function ArcaneWizardLibrary.Dialogs:ShowConfirmDialog(text, onConfirmCallback)
     StaticPopup_Show("ARCANE_WIZARD_LIB_CONFIRM", text, nil, onConfirmCallback)
 end
