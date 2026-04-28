@@ -84,6 +84,38 @@ function ArcaneWizardLibrary.Settings:AddCheckbox(category, config)
     return initializer, setting
 end
 
+--- Registers and adds a Slider element to the settings layout.
+---
+--- @param category table The settings category object.
+--- @param config table Configuration table. Expected keys: settingKey, variableName, variableTable, name, tooltip, default, minValue, maxValue, step, formatter. Optional keys: parentInit, parentCondition, shownPredicate, onClick.
+---
+--- @return table initializer The layout initializer object for the slider.
+--- @return table setting The registered setting object.
+function ArcaneWizardLibrary.Settings:AddSlider(category, config)
+    local setting = Settings.RegisterAddOnSetting(category, config.settingKey, config.variableName, config.variableTable, Settings.VarType.Number, config.name, config.default or 1)
+    local options = Settings.CreateSliderOptions(config.minValue or 1, config.maxValue or 10, config.step or 1)
+
+    if config.formatter then
+        options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, config.formatter)
+    end
+
+    local initializer = Settings.CreateSlider(category, setting, options, config.tooltip)
+
+    if config.parentInit and config.parentCondition then
+        initializer:SetParentInitializer(config.parentInit, config.parentCondition)
+    end
+
+    if config.shownPredicate then
+        initializer:AddShownPredicate(config.shownPredicate)
+    end
+
+    if config.onClick then
+        setting:SetValueChangedCallback(config.onClick)
+    end
+
+    return initializer, setting
+end
+
 --- Registers and adds a combined Checkbox and Slider element to the settings layout.
 ---
 --- @param category table The settings category object.
