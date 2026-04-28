@@ -1,3 +1,6 @@
+**v1.3 (2026-04-28)**
+- Added: API wrapper for sliders to simplify settings menu creation
+
 **v1.2 (2026-04-25)**
 - Added: API wrappers for checkboxes, dropdowns, buttons, and info texts to simplify settings menu creation
 - Added: Expandable sections and combined checkbox-slider elements for advanced settings layouts
