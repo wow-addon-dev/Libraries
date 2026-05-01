@@ -2,4 +2,4 @@
 ### [@project-version@](https://github.com/wow-addon-dev/Library/tree/@project-version@) (@build-date@)
 [Full Changelog](@full-changelog@) - [Previous Releases](https://github.com/wow-addon-dev/Library/releases)
 
-- Added: API wrapper for sliders to simplify settings menu creation
+- Removed obsolete code for better maintainability
