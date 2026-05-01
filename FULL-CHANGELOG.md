@@ -1,3 +1,6 @@
+**v1.4 (2026-05-01)**
+- Removed obsolete code for better maintainability
+
 **v1.3 (2026-04-28)**
 - Added: API wrapper for sliders to simplify settings menu creation
 
